@@ -6,11 +6,11 @@ if FILE_NOT_FOUND:
   pydidyoumean.printSuggestion(FILENAME) # if no suggested file is found, this prints nothing
 '''
 
-def printSuggestion(filename, message='Did you mean %s?\n', folder='.', threshold=2, includeIdenticalFilename=False):
-  sys.stdout.write(getSuggestion(filename, message, folder, threshold, includeIdenticalFilename))
+def printFileSuggestion(filename, message='Did you mean %s?\n', folder='.', threshold=2, includeIdenticalFilename=False):
+  sys.stdout.write(getFileSuggestion(filename, message, folder, threshold, includeIdenticalFilename))
 
 
-def getSuggestion(filename, message='Did you mean %s?\n', folder='.', threshold=2, includeIdenticalFilename=False):
+def getFileSuggestion(filename, message='Did you mean %s?\n', folder='.', threshold=2, includeIdenticalFilename=False):
   suggestedFile = suggestFile(filename, folder, threshold, includeIdenticalFilename)
   if suggestedFile is not None:
     return message % (suggestedFile)
@@ -21,12 +21,12 @@ def getSuggestion(filename, message='Did you mean %s?\n', folder='.', threshold=
 def suggestFile(filename, folder='.', threshold=2, includeIdenticalFilename=False):
   '''Returns the first'''
   try:
-    return suggestFiles(filename, folder, threshold, includeIdenticalFilename).__next__()
+    return suggestAllFiles(filename, folder, threshold, includeIdenticalFilename).__next__()
   except StopIteration:
     return None
 
 
-def suggestFiles(filename, folder='.', threshold=2, includeIdenticalFilename=False):
+def suggestAllFiles(filename, folder='.', threshold=2, includeIdenticalFilename=False):
   '''Returns the first. If there are multiple files with the same edit distance, they will be returned in an undefined order.'''
   filesAndDistances = [(f, levenshtein(filename, f)) for f in os.listdir(folder) if includeIdenticalFilename or f != filename]
   filesAndDistances = [x for x in filesAndDistances if x[1] <= threshold] # remove files over the threshold
@@ -34,6 +34,23 @@ def suggestFiles(filename, folder='.', threshold=2, includeIdenticalFilename=Fal
 
   for fd in filesAndDistances:
     yield fd[0]
+
+
+def printSuggestion(name, message='Did you mean %s?\n', possibleSuggestions=None, threshold=2, includeIdenticalFilename=False):
+  pass
+
+
+def getSuggestion(filename, message='Did you mean %s?\n', possibleSuggestions=None, threshold=2, includeIdenticalFilename=False):
+  pass
+
+
+def suggest(filename, possibleSuggestions=None, threshold=2, includeIdenticalFilename=False):
+  pass
+
+
+def suggestAll(filename, possibleSuggestions=[], threshold=2, includeIdenticalFilename=False):
+  pass
+
 
 
 def levenshtein(s1, s2):
@@ -53,6 +70,3 @@ def levenshtein(s1, s2):
       else:
         matrix[zz+1][sz+1] = min(matrix[zz+1][sz] + 1, matrix[zz][sz+1] + 1, matrix[zz][sz] + 1)
   return matrix[s2_length][s1_length]
-
-
-print(list(suggestFiles('foobarfoobarfoobar.txt', '.', 20)))
