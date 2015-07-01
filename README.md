@@ -1,6 +1,10 @@
 # pydidyoumean
 A module to improve "file/command not found" error messages with "did you mean" suggestions.
 
+Install with:
+
+    pip install pydidyoumean
+
 Typical usage:
 
     if FILE_NOT_FOUND:
