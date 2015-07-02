@@ -27,6 +27,7 @@ If your code is unable to find a filename in the current working directory, you 
 
     >>> import pydidyoumean
     >>> pydidyoumean.printFileSuggestion('typo_filename.txt')
+    Did you mean typo_filename.exe?
 
 The default arguments for `printFileSuggestion()` are as follows:
 
@@ -42,8 +43,8 @@ You can get the string that `printFileSuggestion()` prints by calling `formatFil
 .. code:: python
 
     >>> import pydidyoumean
-    >>> pydidyoumean.getFileSuggestion('typo_filename.txt')
-    Did you mean typo_filename.exe?
+    >>> pydidyoumean.formatFileSuggestion('typo_filename.txt')
+    'Did you mean typo_filename.exe?\n'
 
 (This naming is similar to the `pprint` module's `pprint()` and `pformat()` conventions.)
 
