@@ -83,30 +83,30 @@ class TestGeneral(unittest.TestCase):
         sys.stdout = savedStdOut
 
 
-    def test_getFileSuggestion(self):
+    def test_formatFileSuggestion(self):
         # basic test
-        self.assertEqual(pydidyoumean.getFileSuggestion('test_file_ab.txt'),
+        self.assertEqual(pydidyoumean.formatFileSuggestion('test_file_ab.txt'),
                          'Did you mean test_file_abc.txt?\n')
 
         # test message arg
-        self.assertEqual(pydidyoumean.getFileSuggestion('test_file_ab.txt', message='How about %s?\n'),
+        self.assertEqual(pydidyoumean.formatFileSuggestion('test_file_ab.txt', message='How about %s?\n'),
                          'How about test_file_abc.txt?\n')
 
         # test folder arg
 
-        self.assertEqual(pydidyoumean.getFileSuggestion('test_file_ab.txt', folder=os.path.join('..', 'tests')),
+        self.assertEqual(pydidyoumean.formatFileSuggestion('test_file_ab.txt', folder=os.path.join('..', 'tests')),
                          'Did you mean test_file_abc.txt?\n')
 
 
-        self.assertEqual(pydidyoumean.getFileSuggestion('setup.py', folder='..', threshold=0, includeIdenticalFilename=True),
+        self.assertEqual(pydidyoumean.formatFileSuggestion('setup.py', folder='..', threshold=0, includeIdenticalFilename=True),
                          'Did you mean setup.py?\n')
 
         # test threshold arg
-        self.assertEqual(pydidyoumean.getFileSuggestion('test_file_ab.txt', threshold=0),
+        self.assertEqual(pydidyoumean.formatFileSuggestion('test_file_ab.txt', threshold=0),
                          '')
 
         # test includeIdenticalFilename arg
-        self.assertEqual(pydidyoumean.getFileSuggestion('test_file_abc.txt', threshold=0, includeIdenticalFilename=True),
+        self.assertEqual(pydidyoumean.formatFileSuggestion('test_file_abc.txt', threshold=0, includeIdenticalFilename=True),
                         'Did you mean test_file_abc.txt?\n')
 
 
@@ -180,21 +180,21 @@ class TestGeneral(unittest.TestCase):
         sys.stdout = savedStdOut
 
 
-    def test_getSuggestion(self):
+    def test_formatSuggestion(self):
                 # basic test
-        self.assertEqual(pydidyoumean.getSuggestion('ab', ['abc', 'abcdef', 'foo']),
+        self.assertEqual(pydidyoumean.formatSuggestion('ab', ['abc', 'abcdef', 'foo']),
                          'Did you mean abc?\n')
 
         # test message arg
-        self.assertEqual(pydidyoumean.getSuggestion('ab', ['abc', 'abcdef', 'foo'], message='How about %s?\n'),
+        self.assertEqual(pydidyoumean.formatSuggestion('ab', ['abc', 'abcdef', 'foo'], message='How about %s?\n'),
                          'How about abc?\n')
 
         # test threshold arg
-        self.assertEqual(pydidyoumean.getSuggestion('ab', ['abc', 'abcdef', 'foo'], threshold=0),
+        self.assertEqual(pydidyoumean.formatSuggestion('ab', ['abc', 'abcdef', 'foo'], threshold=0),
                          '')
 
         # test includeIdenticalName arg
-        self.assertEqual(pydidyoumean.getSuggestion('abc', ['abc', 'abcdef', 'foo'], threshold=0, includeIdenticalName=True),
+        self.assertEqual(pydidyoumean.formatSuggestion('abc', ['abc', 'abcdef', 'foo'], threshold=0, includeIdenticalName=True),
                         'Did you mean abc?\n')
 
 

@@ -1,1 +1,2 @@
+v0.1.1, 2015/07/01 -- Renamed 'get' functions to 'format'
 v0.1.0, 2015/07/01 -- Initial release.

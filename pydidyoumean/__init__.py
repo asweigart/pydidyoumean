@@ -31,10 +31,10 @@ def printFileSuggestion(filename, message='Did you mean %s?\n', folder='.', thre
       includeIdenticalFilename (bool, optional) - If True, a filename identical
         to the filename arg will be included in the suggestions. Default is
         False.'''
-  sys.stdout.write(getFileSuggestion(filename, message, folder, threshold, includeIdenticalFilename))
+  sys.stdout.write(formatFileSuggestion(filename, message, folder, threshold, includeIdenticalFilename))
 
 
-def getFileSuggestion(filename, message='Did you mean %s?\n', folder='.', threshold=2, includeIdenticalFilename=False):
+def formatFileSuggestion(filename, message='Did you mean %s?\n', folder='.', threshold=2, includeIdenticalFilename=False):
   '''Returns the string message to display with the closest matching
   filename. Returns a blank string if there are no matches within the
   threshold.
@@ -122,10 +122,10 @@ def printSuggestion(name, possibleSuggestions=None, message='Did you mean %s?\n'
         threshold will exclude a name from being suggested. Default is 2.
       includeIdenticalName (bool, optional) - If True, a name identical to
         the name  arg will be included in the suggestions. Default is False.'''
-  sys.stdout.write(getSuggestion(name, possibleSuggestions, message, threshold, includeIdenticalName))
+  sys.stdout.write(formatSuggestion(name, possibleSuggestions, message, threshold, includeIdenticalName))
 
 
-def getSuggestion(name, possibleSuggestions=None, message='Did you mean %s?\n', threshold=2, includeIdenticalName=False):
+def formatSuggestion(name, possibleSuggestions=None, message='Did you mean %s?\n', threshold=2, includeIdenticalName=False):
   '''Returns the string message to display with the closest matching
   suggestion. Returns a blank string if there are no matches within the
   threshold.
