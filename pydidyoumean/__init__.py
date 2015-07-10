@@ -1,6 +1,8 @@
 import os
 import sys
 
+__version__ = '0.1.2'
+
 runningOnPython2 = sys.version_info[0] == 2
 
 # if SKIP_IF_OPTIMIZED is True, the printSuggestion() and printFileSuggestion()
