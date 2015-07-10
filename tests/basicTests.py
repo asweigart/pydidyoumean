@@ -54,21 +54,21 @@ class TestGeneral(unittest.TestCase):
         # basic test
         sys.stdout = mystdout = StringIO()
         pydidyoumean.printFileSuggestion('test_file_ab.txt')
-        self.assertEqual(mystdout.getvalue(), 'Did you mean test_file_abc.txt?\n')
+        self.assertEqual(mystdout.getvalue(), 'Did you mean test_file_abc.txt?\n' if __debug__ else '')
 
         # test message arg
         sys.stdout = mystdout = StringIO()
         pydidyoumean.printFileSuggestion('test_file_ab.txt', message='How about %s?\n')
-        self.assertEqual(mystdout.getvalue(), 'How about test_file_abc.txt?\n')
+        self.assertEqual(mystdout.getvalue(), 'How about test_file_abc.txt?\n' if __debug__ else '')
 
         # test folder arg
         sys.stdout = mystdout = StringIO()
         pydidyoumean.printFileSuggestion('test_file_ab.txt', folder=os.path.join('..', 'tests'))
-        self.assertEqual(mystdout.getvalue(), 'Did you mean test_file_abc.txt?\n')
+        self.assertEqual(mystdout.getvalue(), 'Did you mean test_file_abc.txt?\n' if __debug__ else '')
 
         sys.stdout = mystdout = StringIO()
         pydidyoumean.printFileSuggestion('setup.py', folder='..', threshold=0, includeIdenticalFilename=True)
-        self.assertEqual(mystdout.getvalue(), 'Did you mean setup.py?\n')
+        self.assertEqual(mystdout.getvalue(), 'Did you mean setup.py?\n' if __debug__ else '')
 
         # test threshold arg
         sys.stdout = mystdout = StringIO()
@@ -78,7 +78,7 @@ class TestGeneral(unittest.TestCase):
         # test includeIdenticalFilename arg
         sys.stdout = mystdout = StringIO()
         pydidyoumean.printFileSuggestion('test_file_abc.txt', threshold=0, includeIdenticalFilename=True)
-        self.assertEqual(mystdout.getvalue(), 'Did you mean test_file_abc.txt?\n')
+        self.assertEqual(mystdout.getvalue(), 'Did you mean test_file_abc.txt?\n' if __debug__ else '')
 
         sys.stdout = savedStdOut
 
@@ -160,12 +160,12 @@ class TestGeneral(unittest.TestCase):
         # basic test
         sys.stdout = mystdout = StringIO()
         pydidyoumean.printSuggestion('ab', ['abc', 'abcdef', 'foo'])
-        self.assertEqual(mystdout.getvalue(), 'Did you mean abc?\n')
+        self.assertEqual(mystdout.getvalue(), 'Did you mean abc?\n' if __debug__ else '')
 
         # test message arg
         sys.stdout = mystdout = StringIO()
         pydidyoumean.printSuggestion('ab', ['abc', 'abcdef', 'foo'], message='How about %s?\n')
-        self.assertEqual(mystdout.getvalue(), 'How about abc?\n')
+        self.assertEqual(mystdout.getvalue(), 'How about abc?\n' if __debug__ else '')
 
         # test threshold arg
         sys.stdout = mystdout = StringIO()
@@ -175,7 +175,7 @@ class TestGeneral(unittest.TestCase):
         # test includeIdenticalName arg
         sys.stdout = mystdout = StringIO()
         pydidyoumean.printSuggestion('abc', ['abc', 'abcdef', 'foo'], threshold=0, includeIdenticalName=True)
-        self.assertEqual(mystdout.getvalue(), 'Did you mean abc?\n')
+        self.assertEqual(mystdout.getvalue(), 'Did you mean abc?\n' if __debug__ else '')
 
         sys.stdout = savedStdOut
 

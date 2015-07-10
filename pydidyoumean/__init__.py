@@ -3,6 +3,9 @@ import sys
 
 runningOnPython2 = sys.version_info[0] == 2
 
+# if SKIP_IF_OPTIMIZED is True, the printSuggestion() and printFileSuggestion()
+# functions are all no-ops and do nothing when Python is run with -O
+SKIP_IF_OPTIMIZED = True
 
 '''Suggested usage:
 
@@ -13,6 +16,22 @@ if COMMAND_NOT_FOUND:
   pydidyoumean.printSuggestion(CMD_NAME, LIST_OF_ALL_CMDS) # if no suggested command is found, this prints nothing
 
 '''
+
+def skipBecauseOptimized():
+  '''If SKIP_IF_OPTIMIZED is set to True (which it is by default), then if the
+  Python interpreter is being run in optimized mode (with the -O command line
+  option, it determines this by checking __debug__), the   printSuggestion()
+  and printFileSuggestion() functions do nothing.
+
+  This module is really only useful for debugging while under development, but
+  in production it could cause performance slow downs without providing benefit.
+
+  Returns True if the caller should be a no-op, returns False if the caller
+  should work as normal.'''
+  if SKIP_IF_OPTIMIZED and not __debug__:
+    return True # no-op
+  else:
+    return False
 
 def printFileSuggestion(filename, message='Did you mean %s?\n', folder='.', threshold=2, includeIdenticalFilename=False):
   '''Prints the string message to display with the closest matching filename in
@@ -31,6 +50,8 @@ def printFileSuggestion(filename, message='Did you mean %s?\n', folder='.', thre
       includeIdenticalFilename (bool, optional) - If True, a filename identical
         to the filename arg will be included in the suggestions. Default is
         False.'''
+  if skipBecauseOptimized(): return
+
   sys.stdout.write(formatFileSuggestion(filename, message, folder, threshold, includeIdenticalFilename))
 
 
@@ -122,6 +143,8 @@ def printSuggestion(name, possibleSuggestions=None, message='Did you mean %s?\n'
         threshold will exclude a name from being suggested. Default is 2.
       includeIdenticalName (bool, optional) - If True, a name identical to
         the name  arg will be included in the suggestions. Default is False.'''
+  if skipBecauseOptimized(): return
+
   sys.stdout.write(formatSuggestion(name, possibleSuggestions, message, threshold, includeIdenticalName))
 
 
