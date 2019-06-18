@@ -1,3 +1,4 @@
+v0.1.3, 2019/06/18 -- Fixed setup.py so this can install on Python 2, updated gitignore, bumped version to 0.1.3
 v0.1.2, 2015/07/10 -- Print functions are no-ops when run in optimized mode.
 v0.1.1, 2015/07/01 -- Renamed 'get' functions to 'format'
 v0.1.0, 2015/07/01 -- Initial release.
