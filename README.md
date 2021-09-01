@@ -17,3 +17,8 @@ Typical usage:
       # prints out "Did you mean %s?\n" % (SUGGESTED_CMD)
 
 There are several other functions and optional parameters for customizing the message or getting the recommendations. Docs are at https://pydidyoumean.readthedocs.org
+
+Support
+-------
+
+If you find this project helpful and would like to support its development, [consider donating to its creator on Patreon](https://www.patreon.com/AlSweigart).
